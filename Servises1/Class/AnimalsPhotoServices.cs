@@ -1,6 +1,8 @@
 ﻿using AnimalShelter.Services.Interfaces;
 using AnimalShelter.Data.Interfaces;
 using AnimalShelter.Models.Animal;
+using System.Threading.Tasks;
+using System;
 
 namespace AnimalShelter.Services.Class
 {

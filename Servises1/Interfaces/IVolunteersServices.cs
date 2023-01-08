@@ -1,5 +1,7 @@
 ﻿using AnimalShelter.Models.Volunteer;
 using Microsoft.AspNetCore.JsonPatch;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AnimalShelter.Services.Interfaces
 {

@@ -3,6 +3,8 @@ using AnimalShelter.Data.Interfaces;
 using AnimalShelter.Models.Animal;
 using AnimalShelter.Models.Employee;
 using AnimalShelter.Services.Interfaces;
+using System;
+using System.Threading.Tasks;
 
 namespace AnimalShelter.Services.Class
 {

@@ -1,4 +1,5 @@
 ﻿using AnimalShelter.Models.Animal;
+using System.Threading.Tasks;
 
 namespace AnimalShelter.Services.Interfaces
 {

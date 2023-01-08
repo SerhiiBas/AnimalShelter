@@ -6,6 +6,8 @@ using AnimalShelter.Models.Animal;
 using AnimalShelter.Models.Employee;
 using AnimalShelter.Services.Interfaces;
 using Microsoft.AspNetCore.JsonPatch;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AnimalShelter.Services.Class
 {

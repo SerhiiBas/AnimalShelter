@@ -4,6 +4,8 @@ using AnimalShelter.Data.Interfaces;
 using AnimalShelter.Models.Animal;
 using AnimalShelter.Services.Interfaces;
 using Microsoft.AspNetCore.JsonPatch;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AnimalShelter.Services.Class
 {
