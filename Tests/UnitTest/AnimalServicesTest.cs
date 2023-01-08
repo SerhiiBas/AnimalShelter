@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Test.UnitTest
 {
+    [TestClass]
     internal class AnimalServicesTest
     {
+        public AnimalServicesTest()
+        {
+
+        }
     }
 }
