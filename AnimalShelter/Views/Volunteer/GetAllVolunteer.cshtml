@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AnimalShelter.Models.Volunteer.Volunteer>
+
+@{
+    ViewData["Title"] = "GetAllVolunteer";
+}
+
+<h1>Volunteers</h1>
+
+<p>
+    <a asp-action="AddNewVolunteer">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.VolunteerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssistanceType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.VolunteerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssistanceType)
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "UpdateVolunteer", new { id=item.VolunteerId }) |
+                    @Html.ActionLink("Details", "GetVolunteerById", new { id=item.VolunteerId }) |
+                    @Html.ActionLink("Delete", "DeleteVolunteer", new { id=item.VolunteerId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

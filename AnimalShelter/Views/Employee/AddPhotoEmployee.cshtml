@@ -1,0 +1,35 @@
+﻿@model AnimalShelter.Models.Employee.EmployeePhoto
+
+@{
+    ViewData["Title"] = "AddPhotoEmployee";
+}
+
+<h1>AddPhotoEmployee</h1>
+
+<h4>EmployeePhoto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddPhotoEmployee" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Employee_Id" class="control-label"></label>
+                <input asp-for="Employee_Id" class="form-control" />
+                <span asp-validation-for="Employee_Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Photo" class="control-label"></label>
+                <input asp-for="Photo" class="form-control" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="GettAllEmployee">Back to List</a>
+</div>
+

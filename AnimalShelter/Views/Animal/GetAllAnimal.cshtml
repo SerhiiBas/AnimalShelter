@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AnimalShelter.Models.Animal.Animal>
+
+@{
+    ViewData["Title"] = "GetAllAnimal";
+}
+
+<h1>GetAllAnimal</h1>
+
+<p>
+    <a asp-action="AddNewAnimal">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeOfAnimal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Status)*@
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfAnimal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Status)*@
+            </td>
+            <td>
+                    @Html.ActionLink("Edit", "UpdateAnimal", new { id=item.AnimalId }) |
+                    @Html.ActionLink("Details", "GetAnimalById", new { id=item.AnimalId }) |
+                    @Html.ActionLink("AddPhoto", "AddPhotoAnimal", new { id=item.AnimalId }) |
+                    @Html.ActionLink("Delete", "DeleteAnimal", new { id=item.AnimalId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
