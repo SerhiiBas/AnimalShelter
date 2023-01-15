@@ -24,6 +24,8 @@ namespace AnimalShelter.Context
 
         public DbSet<Volunteer> Volunteers { get; set; }
 
+        public DbSet<AnimalTag> AnimalTag { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -31,11 +33,11 @@ namespace AnimalShelter.Context
             modelBuilder.Entity<Animal>().HasMany(x => x.Tags).WithMany(x => x.Animals);
 
             modelBuilder.Entity<AnimalTag>().HasData(new List<AnimalTag> {
-            new AnimalTag(){Id = (int)AnimalStatus.WantsToGetBetter, Name = "WantsToGetBetter"} ,
-            new AnimalTag(){Id = (int)AnimalStatus.Sterilized, Name = "Sterilized"},
-            new AnimalTag(){Id = (int)AnimalStatus.LookingForAnOverstay, Name = "LookingForAnOverstay"},
-            new AnimalTag(){Id = (int)AnimalStatus.NoParasites, Name = "NoParasites"},
-            new AnimalTag(){Id = (int)AnimalStatus.NeedsAHome, Name = "NeedsAHome"}
+            new AnimalTag(){TagId = (int)AnimalStatus.WantsToGetBetter, Name = "WantsToGetBetter"} ,
+            new AnimalTag(){TagId = (int)AnimalStatus.Sterilized, Name = "Sterilized"},
+            new AnimalTag(){TagId = (int)AnimalStatus.LookingForAnOverstay, Name = "LookingForAnOverstay"},
+            new AnimalTag(){TagId = (int)AnimalStatus.NoParasites, Name = "NoParasites"},
+            new AnimalTag(){TagId = (int)AnimalStatus.NeedsAHome, Name = "NeedsAHome"}
             });
 
             modelBuilder.Entity<Animal>().HasMany(x => x.AnimalPhotos).WithOne(x => x.Animal);

@@ -6,6 +6,11 @@ using AnimalShelter.Data.Interfaces;
 using AnimalShelter.Validation;
 using AnimalShelter.Context;
 using System.Configuration;
+using Servises.Interfaces;
+using AnimalShelter.Models.Animal;
+using Servises.Services_Class;
+using Data.Interfaces;
+using Data.Repos;
 
 namespace AnimalShelter
 {
@@ -29,12 +34,14 @@ namespace AnimalShelter
             builder.Services.AddTransient<IVolunteersRepo, VolunteersRepo>();
             builder.Services.AddTransient<IAnimalsPhotoRepo, AnimalsPhotoRepo>();
             builder.Services.AddTransient<IEmployeesPhotoRepo, EmployeesPhotoRepo>();
+            builder.Services.AddTransient<IAnimalTagRepo, AnimalTagRepo>();
 
             builder.Services.AddTransient<IAnimalServices, AnimalsServices>();
             builder.Services.AddTransient<IEmployeeServices, EmployeesServices>();
             builder.Services.AddTransient<IVolunteerServices, VolunteersServices>();
             builder.Services.AddTransient<IAnimalPhotoServices, AnimalsPhotoServices>();
             builder.Services.AddTransient<IEmployeePhotoServices, EmployeesPhotoServices>();
+            builder.Services.AddTransient<IAnimalTagsServices, AnimalTagsServices>();
 
             builder.Services.AddTransient<AnimalValidation>();
             builder.Services.AddTransient<EmployeeValidation>();

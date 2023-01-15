@@ -1,9 +1,13 @@
-﻿using AnimalShelter.Models.Animal;
+﻿using AnimalShelter.Context;
+using AnimalShelter.Models.Animal;
 using AnimalShelter.Services.Class;
 using AnimalShelter.Services.Interfaces;
+using Data.Interfaces;
 using Filters.CastomExceptions;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Servises.Interfaces;
 
 namespace AnimalShelterMVC.Controllers
 {
@@ -11,11 +15,13 @@ namespace AnimalShelterMVC.Controllers
     {
         private readonly IAnimalServices _animalsServices;
         private readonly IAnimalPhotoServices _animalsPhotoServices;
+        private readonly IAnimalTagsServices _animalTagsServices;
 
-        public AnimalController(IAnimalServices animalsServices,IAnimalPhotoServices animalsPhotoServices)
+        public AnimalController(IAnimalServices animalsServices, IAnimalPhotoServices animalsPhotoServices, IAnimalTagsServices animalTagsServices)
         {
             this._animalsServices = animalsServices;
             this._animalsPhotoServices = animalsPhotoServices;
+            this._animalTagsServices = animalTagsServices;
         }
         //Animal
 
@@ -27,12 +33,23 @@ namespace AnimalShelterMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddNewAnimal([FromForm] Animal Animal)
+        public async Task<IActionResult> AddNewAnimal([FromForm] Animal Animal, [FromForm] int[] Tags)
         {
+            List<AnimalTag> animalTags = new List<AnimalTag>();
+
+            foreach (int tagId in Tags)
+            {
+                animalTags.Add(await _animalTagsServices.GetById(tagId));
+            }
+
             var animal = await _animalsServices.Create(Animal);
 
+            animal.Tags = animalTags;
+
+            await _animalsServices.Update(animal);
+
             CheckingExceptions.CheckingAtNull(animal);
-                
+
             return RedirectToAction("GetAnimalById", new { id = animal.AnimalId });
         }
 
@@ -102,7 +119,7 @@ namespace AnimalShelterMVC.Controllers
         [HttpGet]
         public IActionResult AddPhotoAnimal([FromRoute] int id)
         {
-            return View("AddPhotoAnimal",new AnimalPhoto() {AnimalId=id});
+            return View("AddPhotoAnimal", new AnimalPhoto() { AnimalId = id });
         }
         [HttpPost]
         public IActionResult AddPhotoAnimal([FromForm] AnimalPhoto animalsPhotos)

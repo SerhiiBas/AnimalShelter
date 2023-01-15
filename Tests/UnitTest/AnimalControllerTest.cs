@@ -5,7 +5,7 @@ using AnimalShelterMVC.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 using Moq;
-
+using Servises.Interfaces;
 
 namespace Test.IntegrationTest
 {//todo додати history
@@ -14,16 +14,19 @@ namespace Test.IntegrationTest
     {
         private Mock<IAnimalServices> _animalsServices;
         private Mock<IAnimalPhotoServices> _animalsPhotoServices;
+        private Mock<IAnimalTagsServices> _animalTagsServices;
         private AnimalController _animalController;
 
         public AnimalController GetAnimalController()
         {
-            return new AnimalController(_animalsServices.Object, _animalsPhotoServices.Object);
+            return new AnimalController(_animalsServices.Object, _animalsPhotoServices.Object, _animalTagsServices.Object);
         }
 
         [TestInitialize]
         public void SetUp()
         {
+            _animalTagsServices = new Mock<IAnimalTagsServices>();
+
             _animalsServices = new Mock<IAnimalServices>();
 
             _animalsPhotoServices = new Mock<IAnimalPhotoServices>();
@@ -37,7 +40,7 @@ namespace Test.IntegrationTest
             //act
             _animalsServices.Setup(x => x.Create(new Animal())).Returns(Task.FromResult<Animal>(null));
             //assert
-            Assert.ThrowsExceptionAsync<NullReferenceException>(() => _animalController.AddNewAnimal(new Animal() { Age = 1, Gender = Gender.Male, AnimalId = 1, Name = "Dips", Size = "123cm" }));
+            Assert.ThrowsExceptionAsync<NullReferenceException>(() => _animalController.AddNewAnimal(new Animal() { Age = 1, Gender = Gender.Male, AnimalId = 1, Name = "Dips", Size = "123cm" },new int[1] {1}));
         }
 
         [TestMethod]
@@ -48,7 +51,7 @@ namespace Test.IntegrationTest
             //act
             _animalsServices.Setup(x => x.Update(new Animal())).Returns(Task.FromResult<Animal>(null));
             //assert
-            Assert.ThrowsExceptionAsync<NullReferenceException>(() => _animalController.AddNewAnimal(new Animal() { Age = 1, Gender = Gender.Male, AnimalId = 1, Name = "Dips", Size = "123cm" }));
+            Assert.ThrowsExceptionAsync<NullReferenceException>(() => _animalController.AddNewAnimal(new Animal() { Age = 1, Gender = Gender.Male, AnimalId = 1, Name = "Dips", Size = "123cm" }, new int[1] { 1 }));
         }
 
         [TestMethod]
