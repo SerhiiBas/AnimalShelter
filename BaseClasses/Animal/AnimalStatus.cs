@@ -2,10 +2,10 @@
 {
     public enum AnimalStatus
     {
-        IWantToRecover = 1,
+        WantsToGetBetter = 1,
         Sterilized,
         LookingForAnOverstay,
         NoParasites,
-        IWantToHome
+        NeedsAHome
     }
 }

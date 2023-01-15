@@ -8,7 +8,7 @@ namespace AnimalShelter.Data.Interfaces
         Task<IEnumerable<Volunteer>> GetAll();
         Task<Volunteer> GetById(int id);
         Task<Volunteer> Create(Volunteer volunteer);
-        Task Delete(Volunteer Volunteer);
-        Task SaveChanges();
+        Task Delete(Volunteer volunteer);
+        Task<Volunteer> Update(Volunteer volunteer);
     }
 }

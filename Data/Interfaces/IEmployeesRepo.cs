@@ -9,6 +9,6 @@ namespace AnimalShelter.Data.Interfaces
         Task<Employee> GetById(int id);
         Task<Employee> Create(Employee Employee);
         Task Delete(Employee Employee);
-        Task SaveChanges();
+        Task<Employee> Update(Employee Employee);
     }
 }

@@ -3,13 +3,15 @@ using AnimalShelter.Models.Animal;
 using AnimalShelter.Models.Employee;
 using AnimalShelter.Models.Volunteer;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AnimalShelter.Context
 {
     public class AnimalShelterContext : DbContext
     {
-        public AnimalShelterContext( DbContextOptions<AnimalShelterContext> dbContextOptions):base(dbContextOptions)
+        public AnimalShelterContext(DbContextOptions<AnimalShelterContext> dbContextOptions) : base(dbContextOptions)
         {
+            Database.EnsureCreated();
         }
 
         public DbSet<Animal> Animals { get; set; }
@@ -20,19 +22,25 @@ namespace AnimalShelter.Context
 
         public DbSet<EmployeePhoto> EmployeesPhotos { get; set; }
 
-        public DbSet<Volunteer> Volunteers { get; set; }    
+        public DbSet<Volunteer> Volunteers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Animal>().HasMany(x => x.Tags).WithMany(x=>x.Animals);
+            modelBuilder.Entity<Animal>().HasMany(x => x.Tags).WithMany(x => x.Animals);
 
-            modelBuilder.Entity<AnimalTag>().HasData(new List<AnimalTag> {new AnimalTag(){Id = (int)AnimalStatus.IWantToRecover, Name = "IWantToRecover"} ,
-        new AnimalTag(){Id = (int)AnimalStatus.Sterilized, Name = "Sterilized"},
-        new AnimalTag(){Id = (int)AnimalStatus.LookingForAnOverstay, Name = "LookingForAnOverstay"},
-        new AnimalTag(){Id = (int)AnimalStatus.NoParasites, Name = "NoParasites"},
-        new AnimalTag(){Id = (int)AnimalStatus.IWantToHome, Name = "IWantToHome"} });
+            modelBuilder.Entity<AnimalTag>().HasData(new List<AnimalTag> {
+            new AnimalTag(){Id = (int)AnimalStatus.WantsToGetBetter, Name = "WantsToGetBetter"} ,
+            new AnimalTag(){Id = (int)AnimalStatus.Sterilized, Name = "Sterilized"},
+            new AnimalTag(){Id = (int)AnimalStatus.LookingForAnOverstay, Name = "LookingForAnOverstay"},
+            new AnimalTag(){Id = (int)AnimalStatus.NoParasites, Name = "NoParasites"},
+            new AnimalTag(){Id = (int)AnimalStatus.NeedsAHome, Name = "NeedsAHome"}
+            });
+
+            modelBuilder.Entity<Animal>().HasMany(x => x.AnimalPhotos).WithOne(x => x.Animal);
+
+            modelBuilder.Entity<Employee>().HasMany(x => x.EmployeePhotos).WithOne(x => x.Employee);
         }
     }
 }

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AnimalShelter.Models.Animal.AnimalPhoto>
+
+@{
+    ViewData["Title"] = "GetAllAnimalPhotos";
+}
+
+<h1>GetAllAnimalPhotos</h1>
+
+<p>
+    <a asp-action="AddPhotoAnimal">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td>
+            <td>
+                    @Html.ActionLink("Delete", "DeleteAnimalPhoto", new { id=item.Id})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

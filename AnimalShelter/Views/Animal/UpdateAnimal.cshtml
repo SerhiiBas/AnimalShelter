@@ -12,6 +12,7 @@
     <div class="col-md-4">
         <form asp-action="UpdateAnimal" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="AnimalId" class="form-control" type="hidden"/>
             <div class="form-group">
                 <label asp-for="TypeOfAnimal" class="control-label"></label>
                 <input asp-for="TypeOfAnimal" class="form-control" />

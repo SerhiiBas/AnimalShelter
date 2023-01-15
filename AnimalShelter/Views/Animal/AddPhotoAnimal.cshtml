@@ -12,11 +12,7 @@
     <div class="col-md-4">
         <form asp-action="AddPhotoAnimal" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Animal_Id" class="control-label"></label>
-                <input asp-for="Animal_Id" class="form-control" />
-                <span asp-validation-for="Animal_Id" class="text-danger"></span>
-            </div>
+            <input asp-for="AnimalId" class="form-control" type="hidden"/> 
             <div class="form-group">
                 <label asp-for="Photo" class="control-label"></label>
                 <input asp-for="Photo" class="form-control" />

@@ -1,6 +1,8 @@
-﻿using AnimalShelter.Models.Employee;
+﻿using AnimalShelter.Models.Animal;
+using AnimalShelter.Models.Employee;
 using AnimalShelter.Services.Class;
 using AnimalShelter.Services.Interfaces;
+using Filters.CastomExceptions;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +10,10 @@ namespace AnimalShelterMVC.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IEmployeesServices _employeesServices;
-        private readonly IEmployeesPhotoServices _employeesPhotoServices;
+        private readonly IEmployeeServices _employeesServices;
+        private readonly IEmployeePhotoServices _employeesPhotoServices;
 
-        public EmployeeController(IEmployeesServices employeesServices, IEmployeesPhotoServices employeesPhotoServices)
+        public EmployeeController(IEmployeeServices employeesServices, IEmployeePhotoServices employeesPhotoServices)
         {
             this._employeesServices = employeesServices;
             this._employeesPhotoServices = employeesPhotoServices;
@@ -28,12 +30,16 @@ namespace AnimalShelterMVC.Controllers
         {
             var newEmployee = await _employeesServices.Create(employee);
 
+            CheckingExceptions.CheckingAtNull(newEmployee);
+
             return RedirectToAction("GetEmployeeById", new { id = newEmployee.EmployeeId });
         }
 
         public async Task<IActionResult> GetAllEmployee()
         {
             IEnumerable<Employee> employee = await _employeesServices.GetAll();
+
+            CheckingExceptions.CheckingAtNull(employee);
 
             return View(employee);
         }
@@ -42,12 +48,16 @@ namespace AnimalShelterMVC.Controllers
         {
             Employee employee = await _employeesServices.GetById(id);
 
+            CheckingExceptions.CheckingAtNull(employee);
+
             return View(employee);
         }
 
         public async Task<IActionResult> DeleteEmployee([FromRoute] int id)
         {
             var delEmployee = await _employeesServices.DeleteByID(id);
+
+            CheckingExceptions.CheckingAtNull(delEmployee);
 
             return View(delEmployee);
         }
@@ -56,13 +66,16 @@ namespace AnimalShelterMVC.Controllers
         public async Task<IActionResult> UpdateEmployee([FromRoute] int id)
         {
             var employee = await _employeesServices.GetById(id);
+
+            CheckingExceptions.CheckingAtNull(employee);
+
             return View(employee);
         }
 
         [HttpPost]
-        public IActionResult UpdateEmployee([FromRoute] int id, [FromForm] JsonPatchDocument<Employee> jsonPatch)
+        public IActionResult UpdateEmployee([FromForm] Employee employee)
         {
-            _employeesServices.Update(id, jsonPatch);
+            _employeesServices.Update(employee);
 
             return RedirectToAction("GetAllEmployee");
         }
@@ -70,12 +83,21 @@ namespace AnimalShelterMVC.Controllers
 
         //Photos
 
-        //Add Photo
+        //Add AnimalPhotos
+
+        public async Task<IActionResult> GetAllEmployeePhoto()
+        {
+            IEnumerable<EmployeePhoto> employeePhoto = await _employeesPhotoServices.GetAll();
+
+            CheckingExceptions.CheckingAtNull(employeePhoto);
+
+            return View(employeePhoto);
+        }
 
         [HttpGet]
         public IActionResult AddPhotoEmployee([FromRoute] int id)
         {
-            return View("AddPhotoEmployee", new EmployeePhoto() { Employee_Id = id });
+            return View("AddPhotoEmployee", new EmployeePhoto() { EmployeeId = id });
         }
 
         [HttpPost]
@@ -89,6 +111,8 @@ namespace AnimalShelterMVC.Controllers
         public async Task<IActionResult> DeleteEmployeePhoto([FromRoute] int id)
         {
             var employeePhoto = await _employeesPhotoServices.Delete(id);
+
+            CheckingExceptions.CheckingAtNull(employeePhoto);
 
             return View(employeePhoto);
         }

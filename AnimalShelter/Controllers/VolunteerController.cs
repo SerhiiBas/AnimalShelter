@@ -6,21 +6,17 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using AnimalShelter.Services.Class;
+using Filters.CastomExceptions;
 
 namespace AnimalShelter.Controllers
 {
     public class VolunteerController : Controller
     {
-        private readonly IVolunteersServices _volunteersServices;
+        private readonly IVolunteerServices _volunteersServices;
 
-        public VolunteerController(IVolunteersServices volunteersServices)
+        public VolunteerController(IVolunteerServices volunteersServices)
         {
             this._volunteersServices = volunteersServices;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
         }
 
         [HttpGet]
@@ -33,6 +29,8 @@ namespace AnimalShelter.Controllers
         public async Task<IActionResult> AddNewVolunteer([FromForm] Volunteer volunteer)
         {
             var newVol = await _volunteersServices.Create(volunteer);
+
+            CheckingExceptions.CheckingAtNull(newVol);
 
             return RedirectToAction("GetVolunteerById", new { id = newVol.VolunteerId });// Чому так запрацювало? як не створювати анонімний обєкт непрокидає в роут id
         }
@@ -48,12 +46,16 @@ namespace AnimalShelter.Controllers
         {
             Volunteer volunteer = await _volunteersServices.GetById(id);
 
+            CheckingExceptions.CheckingAtNull(volunteer);
+
             return View(volunteer);
         }
 
         public async Task<IActionResult> DeleteVolunteer([FromRoute] int id)
         {
             var delVolunteer = await _volunteersServices.DeleteByID(id);
+
+            CheckingExceptions.CheckingAtNull(delVolunteer);
 
             return View(delVolunteer);
         }
@@ -63,13 +65,16 @@ namespace AnimalShelter.Controllers
         public async Task<IActionResult> UpdateVolunteer([FromRoute] int id)
         {
             var volunteer = await _volunteersServices.GetById(id);
+
+            CheckingExceptions.CheckingAtNull(volunteer);
+
             return View(volunteer);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateVolunteer([FromRoute] int id, [FromForm] JsonPatchDocument<Volunteer> jsonPatch)
+        public async Task<IActionResult> UpdateVolunteer([FromForm] Volunteer volunteer)
         {
-            await _volunteersServices.Update(id, jsonPatch);
+            await _volunteersServices.Update(volunteer);
 
             return RedirectToAction("GetAllVolunteer");
         }

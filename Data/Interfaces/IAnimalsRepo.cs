@@ -8,6 +8,6 @@ namespace AnimalShelter.Data.Interfaces
         Task<Animal> GetById(int id);
         Task<Animal> Create(Animal animal);
         Task Delete(Animal Animal);
-        Task SaveChanges();
+        Task<Animal> Update(Animal Animal);
     }
 }

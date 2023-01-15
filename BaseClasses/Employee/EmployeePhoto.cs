@@ -8,7 +8,8 @@ namespace AnimalShelter.Models.Employee
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int Employee_Id { get; set; }
         public string Photo { get; set; }
+        public Employee Employee { get; set; }
+        public int EmployeeId { get; set; }
     }
 }

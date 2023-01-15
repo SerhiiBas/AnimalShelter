@@ -2,8 +2,8 @@
 {
     public enum AssistanceType
     {
-        TakeAnimal,
+        TakingAnAnimal,
         AnimalWalking,
-        Volunteer
+        Volunteering
     }
 }

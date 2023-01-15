@@ -5,6 +5,7 @@ using AnimalShelter.Data.Class;
 using AnimalShelter.Data.Interfaces;
 using AnimalShelter.Validation;
 using AnimalShelter.Context;
+using System.Configuration;
 
 namespace AnimalShelter
 {
@@ -18,7 +19,7 @@ namespace AnimalShelter
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<AnimalShelterContext>(options =>
-            
+
             options.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
             );
 
@@ -29,19 +30,23 @@ namespace AnimalShelter
             builder.Services.AddTransient<IAnimalsPhotoRepo, AnimalsPhotoRepo>();
             builder.Services.AddTransient<IEmployeesPhotoRepo, EmployeesPhotoRepo>();
 
-            builder.Services.AddTransient<IAnimalsServices, AnimalsServices>();
-            builder.Services.AddTransient<IEmployeesServices, EmployeesServices>();
-            builder.Services.AddTransient<IVolunteersServices, VolunteersServices>();
-            builder.Services.AddTransient<IAnimalsPhotoServices, AnimalsPhotoServices>();
-            builder.Services.AddTransient<IEmployeesPhotoServices, EmployeesPhotoServices>();
+            builder.Services.AddTransient<IAnimalServices, AnimalsServices>();
+            builder.Services.AddTransient<IEmployeeServices, EmployeesServices>();
+            builder.Services.AddTransient<IVolunteerServices, VolunteersServices>();
+            builder.Services.AddTransient<IAnimalPhotoServices, AnimalsPhotoServices>();
+            builder.Services.AddTransient<IEmployeePhotoServices, EmployeesPhotoServices>();
 
             builder.Services.AddTransient<AnimalValidation>();
             builder.Services.AddTransient<EmployeeValidation>();
             builder.Services.AddTransient<VolunteerValidation>();
 
+            builder.Services.AddHealthChecks().AddSqlServer(builder.Configuration.GetConnectionString("Default"));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+
+            app.UseHealthChecks("/health");
 
             app.UseStaticFiles();
 

@@ -44,11 +44,11 @@
             <div class="form-group">
                 <label asp-for="Tags" class="control-label"></label>
                 <select multiple asp-for="Tags" class="form-control">
-                    <option value="@((int)AnimalStatus.IWantToRecover)">@AnimalStatus.IWantToRecover</option>
-                    <option value="@((int)AnimalStatus.IWantToHome)">@AnimalStatus.IWantToHome</option>
-                    <option value="@AnimalStatus.LookingForAnOverstay">@AnimalStatus.LookingForAnOverstay</option>
-                    <option value="@AnimalStatus.NoParasites">@AnimalStatus.NoParasites</option>
-                    <option value="@AnimalStatus.Sterilized">@AnimalStatus.Sterilized</option>
+                    <option value="@((int)AnimalStatus.WantsToGetBetter)">@AnimalStatus.WantsToGetBetter</option>
+                    <option value="@((int)AnimalStatus.NeedsAHome)">@AnimalStatus.NeedsAHome</option>
+                    <option value="@((int)AnimalStatus.LookingForAnOverstay)">@AnimalStatus.LookingForAnOverstay</option>
+                    <option value="@((int)AnimalStatus.NoParasites)">@AnimalStatus.NoParasites</option>
+                    <option value="@((int)AnimalStatus.Sterilized)">@AnimalStatus.Sterilized</option>
                 </select>
                 <span asp-validation-for="Tags" class="text-danger"></span>
             </div>
