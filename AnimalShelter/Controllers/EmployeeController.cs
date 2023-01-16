@@ -28,6 +28,9 @@ namespace AnimalShelterMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewEmployee([FromForm] Employee employee)
         {
+            if (!ModelState.IsValid)
+                return View("AddNewEmployee", employee);
+
             var newEmployee = await _employeesServices.Create(employee);
 
             CheckingExceptions.CheckingAtNull(newEmployee);
@@ -75,6 +78,9 @@ namespace AnimalShelterMVC.Controllers
         [HttpPost]
         public IActionResult UpdateEmployee([FromForm] Employee employee)
         {
+            if (!ModelState.IsValid)
+                return View("UpdateEmployee", employee);
+
             _employeesServices.Update(employee);
 
             return RedirectToAction("GetAllEmployee");

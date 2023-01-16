@@ -8,10 +8,10 @@ namespace AnimalShelter.Validation
     {
         public EmployeeValidation()
         {
-            RuleFor(x => x.Name).NotEmpty().NotNull().Length(20).Must(x => x.All(Char.IsLetter)).WithMessage("The name is not valid");
-            RuleFor(x => x.Surname).NotEmpty().NotNull().Length(20).Must(x => x.All(Char.IsLetter)).WithMessage("The surname is not valid");
-            RuleFor(x => x.Position).NotEmpty().NotNull().Length(20);
-            RuleFor(x => x.Description).Length(250);
+            RuleFor(x => x.Name).NotNull().MaximumLength(20).Must(x => x.All(Char.IsLetter)).WithMessage("The name can not contain the naumber");
+            RuleFor(x => x.Surname).NotNull().MaximumLength(20).Must(x => x.All(Char.IsLetter)).WithMessage("The Surname can not contain the naumber");
+            RuleFor(x => x.Position).NotNull().MaximumLength(20);
+            RuleFor(x => x.Description).MaximumLength(250);
         }
     }
 }

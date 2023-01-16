@@ -14,6 +14,6 @@ namespace AnimalShelter.Models.Employee
         public string Surname { get; set; }
         public string Position { get; set; }
         public string Description { get; set; }
-        public ICollection<EmployeePhoto> EmployeePhotos { get; set; }
+        public ICollection<EmployeePhoto>? EmployeePhotos { get; set; }
     }
 }

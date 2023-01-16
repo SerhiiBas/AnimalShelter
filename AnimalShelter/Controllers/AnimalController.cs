@@ -4,10 +4,14 @@ using AnimalShelter.Services.Class;
 using AnimalShelter.Services.Interfaces;
 using Data.Interfaces;
 using Filters.CastomExceptions;
+using FluentValidation;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using Servises.Interfaces;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AnimalShelterMVC.Controllers
 {
@@ -35,6 +39,9 @@ namespace AnimalShelterMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewAnimal([FromForm] Animal Animal, [FromForm] int[] Tags)
         {
+            if (!ModelState.IsValid)
+                return View("AddNewAnimal", Animal);
+
             List<AnimalTag> animalTags = new List<AnimalTag>();
 
             foreach (int tagId in Tags)
@@ -88,6 +95,9 @@ namespace AnimalShelterMVC.Controllers
         [HttpPost]
         public IActionResult UpdateAnimal([FromForm] Animal animal)
         {
+            if (!ModelState.IsValid)
+                return View("UpdateAnimal", animal);
+
             CheckingExceptions.CheckingAtNull(animal);
 
             _animalsServices.Update(animal);

@@ -5,12 +5,17 @@ using AnimalShelter.Data.Class;
 using AnimalShelter.Data.Interfaces;
 using AnimalShelter.Validation;
 using AnimalShelter.Context;
-using System.Configuration;
 using Servises.Interfaces;
 using AnimalShelter.Models.Animal;
 using Servises.Services_Class;
 using Data.Interfaces;
 using Data.Repos;
+using AnimalShelter.Models.Employee;
+using AnimalShelter.Models.Volunteer;
+using FluentValidation.AspNetCore;
+using System.Reflection;
+using FluentValidation;
+using System;
 
 namespace AnimalShelter
 {
@@ -43,11 +48,11 @@ namespace AnimalShelter
             builder.Services.AddTransient<IEmployeePhotoServices, EmployeesPhotoServices>();
             builder.Services.AddTransient<IAnimalTagsServices, AnimalTagsServices>();
 
-            builder.Services.AddTransient<AnimalValidation>();
-            builder.Services.AddTransient<EmployeeValidation>();
-            builder.Services.AddTransient<VolunteerValidation>();
-
             builder.Services.AddHealthChecks().AddSqlServer(builder.Configuration.GetConnectionString("Default"));
+
+            builder.Services.AddValidatorsFromAssemblyContaining<Animal>();
+            builder.Services.AddFluentValidationAutoValidation(); // the same old MVC pipeline behavior
+            //builder.Services.AddFluentValidationClientsideAdapters();
 
             var app = builder.Build();
 

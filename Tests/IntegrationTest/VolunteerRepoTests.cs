@@ -41,7 +41,7 @@ namespace Tests.IntegrationTest
         {
             //arrange
             _volunteersRepo = GetVolunteersRepo();
-            var Volunteer = new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1",MiddleName = "TestLastName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 };
+            var Volunteer = new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1",MiddleName = "TestLastName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" };
             //act
             await _volunteersRepo.Create(Volunteer);
             //assert
@@ -56,7 +56,7 @@ namespace Tests.IntegrationTest
 
             _volunteersRepo = GetVolunteersRepo();
 
-            var volunteer = new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1", MiddleName = "TestMiddleName", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com", Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 };
+            var volunteer = new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1", MiddleName = "TestMiddleName", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com", Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" };
 
             _animalShelterContext.Volunteers.Add(volunteer);
             await _animalShelterContext.SaveChangesAsync();
@@ -80,10 +80,10 @@ namespace Tests.IntegrationTest
             _volunteersRepo = GetVolunteersRepo();
 
             List<Volunteer> VolunteersList = new List<Volunteer>() {
-              new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1",MiddleName = "TestMiddleName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
-              new Volunteer() { FirstName = "TestName2", Surname = "TestSurname2",MiddleName = "TestMiddleName2", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
-              new Volunteer() { FirstName = "TestName3", Surname = "TestSurname3",MiddleName = "TestMiddleName3", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
-              new Volunteer() { FirstName = "TestName4", Surname = "TestSurname4",MiddleName = "TestMiddleName4", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
+              new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1",MiddleName = "TestMiddleName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
+              new Volunteer() { FirstName = "TestName2", Surname = "TestSurname2",MiddleName = "TestMiddleName2", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
+              new Volunteer() { FirstName = "TestName3", Surname = "TestSurname3",MiddleName = "TestMiddleName3", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
+              new Volunteer() { FirstName = "TestName4", Surname = "TestSurname4",MiddleName = "TestMiddleName4", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
             };
 
             _animalShelterContext.Volunteers.AddRange(VolunteersList);
@@ -105,10 +105,10 @@ namespace Tests.IntegrationTest
             _volunteersRepo = GetVolunteersRepo();
 
             List<Volunteer> VolunteersList = new List<Volunteer>() {
-              new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1",MiddleName = "TestLastName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
-              new Volunteer() { FirstName = "TestName2", Surname = "TestSurname2",MiddleName = "TestLastName2", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
-              new Volunteer() { FirstName = "TestName3", Surname = "TestSurname3",MiddleName = "TestLastName3", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
-              new Volunteer() { FirstName = "TestName4", Surname = "TestSurname4",MiddleName = "TestLastName4", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
+              new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1",MiddleName = "TestLastName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
+              new Volunteer() { FirstName = "TestName2", Surname = "TestSurname2",MiddleName = "TestLastName2", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
+              new Volunteer() { FirstName = "TestName3", Surname = "TestSurname3",MiddleName = "TestLastName3", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
+              new Volunteer() { FirstName = "TestName4", Surname = "TestSurname4",MiddleName = "TestLastName4", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
             };
 
             int id = 2;
@@ -133,13 +133,13 @@ namespace Tests.IntegrationTest
             _volunteersRepo = GetVolunteersRepo();
 
             List<Volunteer> VolunteersList = new List<Volunteer>() {
-              new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1",MiddleName = "TestLastName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
-              new Volunteer() { FirstName = "TestName2", Surname = "TestSurname2",MiddleName = "TestLastName2", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
-              new Volunteer() { FirstName = "TestName3", Surname = "TestSurname3",MiddleName = "TestLastName3", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
-              new Volunteer() { FirstName = "TestName4", Surname = "TestSurname4",MiddleName = "TestLastName4", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 },
+              new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1",MiddleName = "TestLastName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
+              new Volunteer() { FirstName = "TestName2", Surname = "TestSurname2",MiddleName = "TestLastName2", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
+              new Volunteer() { FirstName = "TestName3", Surname = "TestSurname3",MiddleName = "TestLastName3", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
+              new Volunteer() { FirstName = "TestName4", Surname = "TestSurname4",MiddleName = "TestLastName4", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
             };
 
-            Volunteer updateVolunteer = new Volunteer() {VolunteerId = id, FirstName = "UpdateName1", Surname = "UpdateSurname1", MiddleName = "UpdateLastName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "Update@gmail.com", Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = 380000000 };
+            Volunteer updateVolunteer = new Volunteer() {VolunteerId = id, FirstName = "UpdateName1", Surname = "UpdateSurname1", MiddleName = "UpdateLastName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "Update@gmail.com", Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" };
 ;
 
             _animalShelterContext.Volunteers.AddRange(VolunteersList);

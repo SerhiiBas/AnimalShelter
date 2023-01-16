@@ -28,6 +28,9 @@ namespace AnimalShelter.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewVolunteer([FromForm] Volunteer volunteer)
         {
+            if (!ModelState.IsValid)
+                return View("AddNewVolunteer", volunteer);
+
             var newVol = await _volunteersServices.Create(volunteer);
 
             CheckingExceptions.CheckingAtNull(newVol);
@@ -74,6 +77,9 @@ namespace AnimalShelter.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateVolunteer([FromForm] Volunteer volunteer)
         {
+            if (!ModelState.IsValid)
+                return View("UpdateVolunteer", volunteer);
+
             await _volunteersServices.Update(volunteer);
 
             return RedirectToAction("GetAllVolunteer");
