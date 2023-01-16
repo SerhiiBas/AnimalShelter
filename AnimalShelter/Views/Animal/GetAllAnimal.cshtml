@@ -1,28 +1,25 @@
 ﻿@model IEnumerable<AnimalShelter.Models.Animal.Animal>
 
 @{
-    ViewData["Title"] = "GetAllAnimal";
+    ViewData["Title"] = "Get All Animal";
 }
 
-<h1>GetAllAnimal</h1>
+<h1>Get All Animal</h1>
 
-<p>
+ <p>
     <a asp-action="AddNewAnimal">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TypeOfAnimal)
+                Type Of Animal
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Gender)
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Status)*@
             </th>
             <th></th>
         </tr>
@@ -40,12 +37,9 @@
                 @Html.DisplayFor(modelItem => item.Gender)
             </td>
             <td>
-                @*@Html.DisplayFor(modelItem => item.Status)*@
-            </td>
-            <td>
                     @Html.ActionLink("Edit", "UpdateAnimal", new { id=item.AnimalId }) |
                     @Html.ActionLink("Details", "GetAnimalById", new { id=item.AnimalId }) |
-                    @Html.ActionLink("AddPhoto", "AddPhotoAnimal", new { id=item.AnimalId }) |
+                    @Html.ActionLink("Add Photo", "AddPhotoAnimal", new { id=item.AnimalId }) |
                     @Html.ActionLink("Delete", "DeleteAnimal", new { id=item.AnimalId })
             </td>
         </tr>

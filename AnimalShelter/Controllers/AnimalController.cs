@@ -129,14 +129,22 @@ namespace AnimalShelterMVC.Controllers
             return RedirectToAction("GetAllAnimal");
         }
 
+        [HttpGet]
         public async Task<IActionResult> DeleteAnimalPhoto([FromRoute] int id)
+        {
+            var animal = await _animalsPhotoServices.GetByID(id);
+
+            return View(animal);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAnimalPhoto([FromForm] AnimalPhoto AnimalPhoto, [FromRoute] int id)
         {
             var animalPhoto = await _animalsPhotoServices.Delete(id);
 
             CheckingExceptions.CheckingAtNull(animalPhoto);
 
-            return View(animalPhoto);
+            return RedirectToAction("GetAllAnimalPhotos");
         }
-
     }
 }

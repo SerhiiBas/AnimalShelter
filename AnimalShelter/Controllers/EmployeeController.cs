@@ -108,14 +108,22 @@ namespace AnimalShelterMVC.Controllers
             return RedirectToAction("GetAllEmployee");
         }
 
+        [HttpGet]
         public async Task<IActionResult> DeleteEmployeePhoto([FromRoute] int id)
+        {
+            var delEmployee = await _employeesPhotoServices.GetByID(id);
+
+            return View(delEmployee);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteEmployeePhoto([FromForm] EmployeePhoto EmployeePhoto, [FromRoute] int id)
         {
             var employeePhoto = await _employeesPhotoServices.Delete(id);
 
             CheckingExceptions.CheckingAtNull(employeePhoto);
 
-            return View(employeePhoto);
+            return RedirectToAction("GetAllEmployeePhoto");
         }
-
     }
 }

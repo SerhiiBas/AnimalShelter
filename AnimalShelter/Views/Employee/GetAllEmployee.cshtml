@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AnimalShelter.Models.Employee.Employee>
 
 @{
-    ViewData["Title"] = "GetAllEmployee";
+    ViewData["Title"] = "Get All Employee";
 }
 
 <h1>Employees</h1>
@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeId)
+               Employee Id
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -46,7 +46,7 @@
                 <td>
                     @Html.ActionLink("Edit", "UpdateEmployee", new { id=item.EmployeeId }) |
                     @Html.ActionLink("Details", "GetEmployeeById", new { id=item.EmployeeId }) |
-                    @Html.ActionLink("Add AnimalPhotos", "AddPhotoEmployee", new { id=item.EmployeeId }) |
+                    @Html.ActionLink("Add Employee Photo", "AddPhotoEmployee", new { id=item.EmployeeId }) |
                     @Html.ActionLink("Delete", "DeleteEmployee", new { id=item.EmployeeId })
                 </td>
             </tr>

@@ -13,8 +13,8 @@ namespace AnimalShelter.Models.Volunteer
         public string MiddleName { get; set; }
         public Gender Gender { get; set; }
         public string Email { get; set; }
-        //[Phone]
-        public int PhoneNumber { get; set; }
+        [Phone]
+        public string PhoneNumber { get; set; }
         public AssistanceType AssistanceType { get; set; }
     }
 }

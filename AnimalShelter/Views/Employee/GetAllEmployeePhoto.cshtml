@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<AnimalShelter.Models.Employee.EmployeePhoto>
 
 @{
-    ViewData["Title"] = "GetAllEmployeePhoto";
+    ViewData["Title"] = "Get All Employee Photo";
 }
 
-<h1>GetAllEmployeePhoto</h1>
+<h1>Get All Employee Photo</h1>
 
 <p>
     <a asp-action="AddPhotoEmployee">Create New</a>
@@ -31,7 +31,7 @@
                 @Html.DisplayFor(modelItem => item.Photo)
             </td>
             <td>
-                    @Html.ActionLink("Delete", "DeleteEmployeePhoto", new { id=item.Id })
+                @Html.ActionLink("Delete", "DeleteEmployeePhoto", new { id=item.Id })
             </td>
         </tr>
 }

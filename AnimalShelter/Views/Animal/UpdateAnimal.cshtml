@@ -1,10 +1,11 @@
-﻿@model AnimalShelter.Models.Animal.Animal
+﻿@using AnimalShelter.Models.Animal
+@model AnimalShelter.Models.Animal.Animal
 
 @{
-    ViewData["Title"] = "UpdateAnimal";
+    ViewData["Title"] = "Update Animal";
 }
 
-<h1>UpdateAnimal</h1>
+<h1>Update Animal</h1>
 
 <h4>Animal</h4>
 <hr />
@@ -14,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input asp-for="AnimalId" class="form-control" type="hidden"/>
             <div class="form-group">
-                <label asp-for="TypeOfAnimal" class="control-label"></label>
+                <label asp-for="TypeOfAnimal" class="control-label">Type Of Animal</label>
                 <input asp-for="TypeOfAnimal" class="form-control" />
                 <span asp-validation-for="TypeOfAnimal" class="text-danger"></span>
             </div>
@@ -25,7 +26,10 @@
             </div>
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
-                <input asp-for="Gender" class="form-control" />
+                 <select asp-for="Gender" class="form-control">
+                    <option>@Gender.Female</option>
+                    <option>@Gender.Male</option>
+                </select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,7 +44,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Tags" class="control-label"></label>
-                <input asp-for="Tags" class="form-control" />
+                <select multiple asp-for="Tags" class="form-control">
+                    <option value="@((int)AnimalStatus.WantsToGetBetter)">@AnimalStatus.WantsToGetBetter</option>
+                    <option value="@((int)AnimalStatus.NeedsAHome)">@AnimalStatus.NeedsAHome</option>
+                    <option value="@((int)AnimalStatus.LookingForAnOverstay)">@AnimalStatus.LookingForAnOverstay</option>
+                    <option value="@((int)AnimalStatus.NoParasites)">@AnimalStatus.NoParasites</option>
+                    <option value="@((int)AnimalStatus.Sterilized)">@AnimalStatus.Sterilized</option>
+                </select>
                 <span asp-validation-for="Tags" class="text-danger"></span>
             </div>
             <div class="form-group">

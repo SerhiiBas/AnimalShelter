@@ -1,18 +1,18 @@
 ﻿@model AnimalShelter.Models.Animal.AnimalPhoto
 
 @{
-    ViewData["Title"] = "DeleteAnimalPhoto";
+    ViewData["Title"] = "Delete Animal Photo";
 }
 
-<h1>DeleteAnimalPhoto</h1>
+<h1>Delete Animal Photo</h1>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>AnimalPhoto</h4>
+    <h4>Animal Photo</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
+            Id
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Id)
@@ -25,8 +25,8 @@
         </dd>
     </dl>
     
-    <form asp-action="DeleteAnimalPhoto">
+    <form asp-action="DeleteAnimalPhoto" method="post">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="GetAllAnimal">Back to List</a>
+        <a asp-action="GetAllAnimalPhotos">Back to List</a>
     </form>
 </div>

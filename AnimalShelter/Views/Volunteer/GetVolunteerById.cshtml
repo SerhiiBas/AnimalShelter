@@ -1,23 +1,23 @@
 ﻿@model AnimalShelter.Models.Volunteer.Volunteer
 
 @{
-    ViewData["Title"] = "GetVolunteerById";
+    ViewData["Title"] = "Get Volunteer By Id";
 }
 
-<h1>GetVolunteerById</h1>
+<h1>Get Volunteer By Id</h1>
 
 <div>
     <h4>Volunteer</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VolunteerId)
+            Volunteer Id
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.VolunteerId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
+            First Name
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FirstName)
@@ -29,7 +29,7 @@
             @Html.DisplayFor(model => model.Surname)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MiddleName)
+            Middle Name
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.MiddleName)
@@ -47,13 +47,13 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            Phone Number
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AssistanceType)
+            Assistance Type
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.AssistanceType)
