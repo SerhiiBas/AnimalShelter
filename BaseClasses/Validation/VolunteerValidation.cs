@@ -8,9 +8,9 @@ namespace AnimalShelter.Validation
     {
         public VolunteerValidation()
         {
-            RuleFor(x=> x.FirstName).NotEmpty().NotNull().MaximumLength(20).Must(x => x.All(Char.IsLetter)).WithMessage("The First Name can not contain the naumber");
-            RuleFor(x=> x.Surname).NotEmpty().NotNull().MaximumLength(20).Must(x => x.All(Char.IsLetter)).WithMessage("The Surname can not contain the naumber");
-            RuleFor(x=> x.MiddleName).NotEmpty().NotNull().MaximumLength(20).Must(x => x.All(Char.IsLetter)).WithMessage("The Middle Name can not contain the naumber");
+            RuleFor(x=> x.FirstName).NotEmpty().NotNull().MaximumLength(20).Matches(new Regex(@"^[A-Za-zA-Яа-яії\s]*$")).WithMessage("'{PropertyName}' should only contain letters."); ;
+            RuleFor(x=> x.Surname).NotEmpty().NotNull().MaximumLength(20).Matches(new Regex(@"^[A-Za-zA-Яа-яії\s]*$")).WithMessage("'{PropertyName}' should only contain letters."); ;
+            RuleFor(x=> x.MiddleName).NotEmpty().NotNull().MaximumLength(20).Matches(new Regex(@"^[A-Za-zA-Яа-яії\s]*$")).WithMessage("'{PropertyName}' should only contain letters."); ;
             RuleFor(x => x.Gender).NotNull();
             RuleFor(x => x.AssistanceType).NotNull();
             RuleFor(x => x.Email).EmailAddress();

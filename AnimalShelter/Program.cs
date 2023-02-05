@@ -16,6 +16,7 @@ using FluentValidation.AspNetCore;
 using System.Reflection;
 using FluentValidation;
 using System;
+using AnimalShelter.Filters;
 
 namespace AnimalShelter
 {
@@ -51,8 +52,9 @@ namespace AnimalShelter
             builder.Services.AddHealthChecks().AddSqlServer(builder.Configuration.GetConnectionString("Default"));
 
             builder.Services.AddValidatorsFromAssemblyContaining<Animal>();
-            builder.Services.AddFluentValidationAutoValidation(); // the same old MVC pipeline behavior
-            //builder.Services.AddFluentValidationClientsideAdapters();
+            builder.Services.AddFluentValidationAutoValidation();
+
+            builder.Services.AddControllers(options => options.Filters.Add(typeof(ExceptionFilter)));
 
             var app = builder.Build();
 

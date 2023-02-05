@@ -40,6 +40,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
+        <dd class = "col-sm-10">
+            @foreach (var item in Model.EmployeePhotos ?? throw new Exception())
+            {
+                        <img src="@item.Photo" alt="image Employee" style="border-radius:50%; max-height:250px;">
+            }
+        </dd>
     </dl>
 </div>
 <div>

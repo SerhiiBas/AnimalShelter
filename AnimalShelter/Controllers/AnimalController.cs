@@ -5,12 +5,14 @@ using AnimalShelter.Services.Interfaces;
 using Data.Interfaces;
 using Filters.CastomExceptions;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
 using Servises.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AnimalShelterMVC.Controllers
@@ -40,7 +42,7 @@ namespace AnimalShelterMVC.Controllers
         public async Task<IActionResult> AddNewAnimal([FromForm] Animal Animal, [FromForm] int[] Tags)
         {
             if (!ModelState.IsValid)
-                return View("AddNewAnimal", Animal);
+                return View("AddNewAnimal", Animal);// якщо невалідні поля заново повертає форму з винятками
 
             List<AnimalTag> animalTags = new List<AnimalTag>();
 
@@ -64,7 +66,7 @@ namespace AnimalShelterMVC.Controllers
 
         public async Task<IActionResult> GetAllAnimal()
         {
-            IEnumerable<Animal> animal = await _animalsServices.GetAll();// Не розумію чому Var не працєює а IEnumerable<Animal> працює
+            IEnumerable<Animal> animal = await _animalsServices.GetAll();
 
             CheckingExceptions.CheckingAtNull(animal);
 
@@ -92,15 +94,33 @@ namespace AnimalShelterMVC.Controllers
             return View(animal);
         }
 
+        //todo зробити щоб не додавало статусів яких немає
         [HttpPost]
-        public IActionResult UpdateAnimal([FromForm] Animal animal)
+        public async Task<IActionResult> UpdateAnimal([FromForm] Animal animal, [FromForm] int[] Tags)
         {
+            CheckingExceptions.CheckingAtNull(animal);
+
             if (!ModelState.IsValid)
                 return View("UpdateAnimal", animal);
 
             CheckingExceptions.CheckingAtNull(animal);
+           
+            await _animalsServices.Update(animal);
 
-            _animalsServices.Update(animal);
+            return RedirectToAction("GetAllAnimal");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteAnimalTag()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        //todo зробити адекватне видалення з форми не береться значення
+        public async Task<IActionResult> DeleteAnimalTag([FromForm] string Name, [FromRoute] int id)
+        {
+            await _animalsServices.DeleteTag(id, Name.ToString());
 
             return RedirectToAction("GetAllAnimal");
         }

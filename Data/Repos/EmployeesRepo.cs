@@ -39,7 +39,7 @@ namespace AnimalShelter.Data.Class
 
         public async Task<Employee> GetById(int id)
         {
-            var employee = await _employee.Employees.FirstOrDefaultAsync(x => x.EmployeeId == id);
+            var employee = await _employee.Employees.Include(x=>x.EmployeePhotos).FirstOrDefaultAsync(x => x.EmployeeId == id);
 
             return employee;
         }

@@ -9,5 +9,7 @@ namespace AnimalShelter.Data.Interfaces
         Task<Animal> Create(Animal animal);
         Task Delete(Animal Animal);
         Task<Animal> Update(Animal Animal);
+        Task DeleteTag(Animal animal, AnimalTag nameTag);
+        Task SaveAnimalChanges();
     }
 }

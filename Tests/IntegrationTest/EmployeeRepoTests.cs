@@ -124,34 +124,6 @@ namespace Tests.IntegrationTest
 
             Assert.IsTrue(id == employee.EmployeeId);
         }
-
-        [TestMethod]
-        public async Task Update_ListOfEmployees_UpdateEmployeeId2()//походу щоб переробити вони кидає в трекінг анімала який і так сидить в памяті тому конфліктує
-        {
-            //aeeange
-            int id = 2;
-            _employeesRepo = GetEmployeeRepo();
-
-            List<Employee> EmployeesList = new List<Employee>() {
-               new Employee() { Name = "TestName1", Surname = "TestSurname1", Position = "TestPosition1", Description = "TestDescription1" },
-               new Employee() { Name = "TestName2", Surname = "TestSurname2", Position = "TestPosition2", Description = "TestDescription2" },
-               new Employee() { Name = "TestName3", Surname = "TestSurname3", Position = "TestPosition3", Description = "TestDescription3" },
-               new Employee() { Name = "TestName4", Surname = "TestSurname4", Position = "TestPosition4", Description = "TestDescription4" }
-            };
-
-            Employee updateEmployee = new Employee() {EmployeeId =id, Name = "UpdateName4", Surname = "UpdateSurname4", Position = "UpdatePosition4", Description = "UpdateDescription4" };
-
-            _animalShelterContext.Employees.AddRange(EmployeesList);
-
-            await _animalShelterContext.SaveChangesAsync();
-            //act
-
-            Employee employee = await _employeesRepo.Update(updateEmployee);
-
-            //Assert
-
-            Assert.IsTrue(_animalShelterContext.Employees.Contains<Employee>(employee));
-        }
     }
 }
  

@@ -8,7 +8,7 @@ using Moq;
 using Servises.Interfaces;
 
 namespace Test.IntegrationTest
-{//todo додати history
+{
     [TestClass]
     public class AnimalControllerTest
     {

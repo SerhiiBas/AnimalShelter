@@ -3,8 +3,11 @@ using AnimalShelter.Data.Class;
 using AnimalShelter.Data.Interfaces;
 using AnimalShelter.Models.Animal;
 using AnimalShelter.Services.Interfaces;
+using Filters.CastomExceptions;
 using Microsoft.AspNetCore.JsonPatch;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimalShelter.Services.Class
@@ -36,6 +39,21 @@ namespace AnimalShelter.Services.Class
             await _animalsRepo.Delete(delAnimal);
 
             return delAnimal;
+        }
+
+        public async Task DeleteTag(int animalId, string nameTag)
+        {
+            var animal = await _animalsRepo.GetById(animalId);
+
+            CheckingExceptions.CheckingAtNull(animal);
+
+            CheckingExceptions.CheckingAtNull(nameTag);
+
+            var tagToDelete = animal.Tags.FirstOrDefault(x => x.Name.Equals(nameTag, StringComparison.OrdinalIgnoreCase));
+
+            animal.Tags.Remove(tagToDelete);
+
+            await _animalsRepo.SaveAnimalChanges();
         }
 
         public async Task<IEnumerable<Animal>> GetAll()

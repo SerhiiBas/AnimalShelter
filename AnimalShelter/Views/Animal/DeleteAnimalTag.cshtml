@@ -1,0 +1,32 @@
+﻿@using AnimalShelter.Models.Animal
+@model AnimalShelter.Models.Animal.AnimalTag
+
+@{
+    ViewData["Title"] = "Delete Animal Tag";
+}
+
+<h1>Delete Animal Tag</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <form asp-action="DeleteAnimalTag">
+    <h4>Animal Tag</h4>
+    <hr />
+    <dl class="row">
+            <input asp-for="AnimalId" class="form-control" type="hidden"/>
+             <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <select asp-for="Name" class="form-control">
+                    <option value="@(AnimalStatus.WantsToGetBetter.ToString())">@AnimalStatus.WantsToGetBetter</option>
+                    <option value="@(AnimalStatus.NeedsAHome.ToString())">@AnimalStatus.NeedsAHome</option>
+                    <option value="@(AnimalStatus.LookingForAnOverstay.ToString())">@AnimalStatus.LookingForAnOverstay</option>
+                    <option value="@(AnimalStatus.NoParasites.ToString())">@AnimalStatus.NoParasites</option>
+                    <option value="@(AnimalStatus.Sterilized.ToString())">@AnimalStatus.Sterilized</option>
+                </select>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+    </dl>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="GetAllAnimal">Back to List</a>
+    </form>
+</div>

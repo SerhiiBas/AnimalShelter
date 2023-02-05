@@ -1,4 +1,5 @@
-﻿@model AnimalShelter.Models.Animal.Animal
+﻿@using AnimalShelter.Models.Animal
+@model AnimalShelter.Models.Animal.Animal
 
 @{
     ViewData["Title"] = "Get Animal By Id";
@@ -10,6 +11,7 @@
     <h4>Animal</h4>
     <hr />
     <dl class="row">
+
         <dt class = "col-sm-2">
             Animal Id
         </dt>
@@ -52,9 +54,25 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.History)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tags)
+        </dt>
+         <dd class = "col-sm-10">
+                @foreach (var item in Model.Tags)
+            {
+                        <dd class = "col-sm-10">@item.Name;</dd>
+            }
+        </dd>
+        <dd class = "col-sm-10">
+            @foreach (var item in Model.AnimalPhotos ?? throw new Exception())
+            {
+                   <img src="@item.Photo" alt="image animal" style="border-radius:50%; max-height:250px;">
+            }
+        </dd>
     </dl>
 </div>
 <div>
     @Html.ActionLink("Edit", "UpdateAnimal", new {  id = Model.AnimalId }) |
+    @Html.ActionLink("Delete Tag", "DeleteAnimalTag", new {  id = Model.AnimalId }) |
     <a asp-action="GetAllAnimal">Back to List</a>
 </div>

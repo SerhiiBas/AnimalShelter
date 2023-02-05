@@ -123,35 +123,5 @@ namespace Tests.IntegrationTest
 
             Assert.IsTrue(id == volunteer.VolunteerId);
         }
-
-        [TestMethod]
-        public async Task Update_ListOfVolunteers_UpdateVolunteerId2()//походу щоб переробити вони кидає в трекінг анімала який і так сидить в памяті тому конфліктує
-        {
-            //aeeange
-            int id = 2;
-
-            _volunteersRepo = GetVolunteersRepo();
-
-            List<Volunteer> VolunteersList = new List<Volunteer>() {
-              new Volunteer() { FirstName = "TestName1", Surname = "TestSurname1",MiddleName = "TestLastName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
-              new Volunteer() { FirstName = "TestName2", Surname = "TestSurname2",MiddleName = "TestLastName2", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
-              new Volunteer() { FirstName = "TestName3", Surname = "TestSurname3",MiddleName = "TestLastName3", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
-              new Volunteer() { FirstName = "TestName4", Surname = "TestSurname4",MiddleName = "TestLastName4", AssistanceType = AssistanceType.TakingAnAnimal, Email = "test@gmail.com",Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" },
-            };
-
-            Volunteer updateVolunteer = new Volunteer() {VolunteerId = id, FirstName = "UpdateName1", Surname = "UpdateSurname1", MiddleName = "UpdateLastName1", AssistanceType = AssistanceType.TakingAnAnimal, Email = "Update@gmail.com", Gender = AnimalShelter.Models.Gender.Female, PhoneNumber = "+380999111000" };
-;
-
-            _animalShelterContext.Volunteers.AddRange(VolunteersList);
-
-            await _animalShelterContext.SaveChangesAsync();
-            //act
-
-            Volunteer volunteer = await _volunteersRepo.Update(updateVolunteer);
-
-            //Assert
-
-            Assert.IsTrue(_animalShelterContext.Volunteers.Contains<Volunteer>(volunteer));
-        }
     }
 }

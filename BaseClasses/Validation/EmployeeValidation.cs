@@ -1,6 +1,7 @@
 ﻿using AnimalShelter.Models.Animal;
 using AnimalShelter.Models.Employee;
 using FluentValidation;
+using System.Text.RegularExpressions;
 
 namespace AnimalShelter.Validation
 {
@@ -8,8 +9,8 @@ namespace AnimalShelter.Validation
     {
         public EmployeeValidation()
         {
-            RuleFor(x => x.Name).NotNull().MaximumLength(20).Must(x => x.All(Char.IsLetter)).WithMessage("The name can not contain the naumber");
-            RuleFor(x => x.Surname).NotNull().MaximumLength(20).Must(x => x.All(Char.IsLetter)).WithMessage("The Surname can not contain the naumber");
+            RuleFor(x => x.Name).NotNull().MaximumLength(20).Matches(new Regex(@"^[A-Za-zA-Яа-яії\s]*$")).WithMessage("'{PropertyName}' should only contain letters.");
+            RuleFor(x => x.Surname).NotNull().MaximumLength(20).Matches(new Regex(@"^[A-Za-zA-Яа-яїі\s]*$")).WithMessage("'{PropertyName}' should only contain letters.");
             RuleFor(x => x.Position).NotNull().MaximumLength(20);
             RuleFor(x => x.Description).MaximumLength(250);
         }
