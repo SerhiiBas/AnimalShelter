@@ -1,10 +1,9 @@
 ﻿using AnimalShelter.CastomExceptions.Animal;
-using AnimalShelter.Data.Class;
 using AnimalShelter.Data.Interfaces;
 using AnimalShelter.Models.Animal;
 using AnimalShelter.Services.Interfaces;
+using Data.Interfaces;
 using Filters.CastomExceptions;
-using Microsoft.AspNetCore.JsonPatch;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +14,13 @@ namespace AnimalShelter.Services.Class
     public class AnimalsServices : IAnimalServices
     {
         private readonly IAnimalsRepo _animalsRepo;
+        private readonly IAnimalTagRepo _animalTagRepo;
 
-        public AnimalsServices(IAnimalsRepo animalsRepo)
+
+        public AnimalsServices(IAnimalsRepo animalsRepo, IAnimalTagRepo animalTagRepo)
         {
             this._animalsRepo = animalsRepo;
+            this._animalTagRepo = animalTagRepo;
         }
 
         public async Task<Animal> Create(Animal animal)
@@ -55,6 +57,26 @@ namespace AnimalShelter.Services.Class
 
             await _animalsRepo.SaveAnimalChanges();
         }
+        //
+        public async Task AddAnimalTag(int animalId, string nameTag)
+        {
+            var animal = await _animalsRepo.GetById(animalId);
+
+            CheckingExceptions.CheckingAtNull(animal);
+
+            CheckingExceptions.CheckingAtNull(nameTag);
+
+            if (!animal.Tags.Any(x=>x.Name == nameTag))
+            {
+                var newAnimaltag = await _animalTagRepo.GetByName(nameTag);
+                animal.Tags.Add(newAnimaltag);
+                await _animalsRepo.SaveAnimalChanges();
+            }
+            else
+                throw new Exception("Animal has got this tag");
+
+        }
+        //
 
         public async Task<IEnumerable<Animal>> GetAll()
         {

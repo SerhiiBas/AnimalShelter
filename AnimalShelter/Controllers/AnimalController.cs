@@ -1,19 +1,8 @@
-﻿using AnimalShelter.Context;
-using AnimalShelter.Models.Animal;
-using AnimalShelter.Services.Class;
+﻿using AnimalShelter.Models.Animal;
 using AnimalShelter.Services.Interfaces;
-using Data.Interfaces;
 using Filters.CastomExceptions;
-using FluentValidation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol;
 using Servises.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace AnimalShelterMVC.Controllers
 {
@@ -94,9 +83,8 @@ namespace AnimalShelterMVC.Controllers
             return View(animal);
         }
 
-        //todo зробити щоб не додавало статусів яких немає
         [HttpPost]
-        public async Task<IActionResult> UpdateAnimal([FromForm] Animal animal, [FromForm] int[] Tags)
+        public async Task<IActionResult> UpdateAnimal([FromForm] Animal animal)
         {
             CheckingExceptions.CheckingAtNull(animal);
 
@@ -110,6 +98,7 @@ namespace AnimalShelterMVC.Controllers
             return RedirectToAction("GetAllAnimal");
         }
 
+        // animal Tag
         [HttpGet]
         public async Task<IActionResult> DeleteAnimalTag()
         {
@@ -117,10 +106,23 @@ namespace AnimalShelterMVC.Controllers
         }
 
         [HttpPost]
-        //todo зробити адекватне видалення з форми не береться значення
         public async Task<IActionResult> DeleteAnimalTag([FromForm] string Name, [FromRoute] int id)
         {
             await _animalsServices.DeleteTag(id, Name.ToString());
+
+            return RedirectToAction("GetAllAnimal");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddAnimalTag()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddAnimalTag([FromForm] string Name, [FromRoute] int id)
+        {
+            await _animalsServices.AddAnimalTag(id, Name.ToString());
 
             return RedirectToAction("GetAllAnimal");
         }

@@ -40,7 +40,9 @@
                     @Html.ActionLink("Edit", "UpdateAnimal", new { id=item.AnimalId }) |
                     @Html.ActionLink("Details", "GetAnimalById", new { id=item.AnimalId }) |
                     @Html.ActionLink("Add Photo", "AddPhotoAnimal", new { id=item.AnimalId }) |
-                    @Html.ActionLink("Delete", "DeleteAnimal", new { id=item.AnimalId })
+                    @Html.ActionLink("Delete", "DeleteAnimal", new { id=item.AnimalId }) |
+                    @Html.ActionLink("Add Animal Tag", "AddAnimalTag", new { id=item.AnimalId }) |
+                    @Html.ActionLink("Delete Animal Tag", "DeleteAnimalTag", new { id=item.AnimalId })
             </td>
         </tr>
 }

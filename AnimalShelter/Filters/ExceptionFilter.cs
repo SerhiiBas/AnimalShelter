@@ -74,5 +74,12 @@ namespace AnimalShelter.Filters
             context.Result = new JsonResult(new { message = ex.Message });
             context.ExceptionHandled = true;
         }
+        public void Handle(Exception ex, ExceptionContext context)
+        {
+            _logger.LogError($"[MY LOG]\n Null Reference Exception\n{ex.Message}\n{context.Exception.StackTrace}");
+
+            context.Result = new JsonResult(new { message = ex.Message });
+            context.ExceptionHandled = true;
+        }
     }
 }

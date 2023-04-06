@@ -9,6 +9,7 @@ namespace Data.Interfaces
 {
     public interface IAnimalTagRepo
     {
-        public Task<AnimalTag> GetById(int id);
+        Task<AnimalTag> GetById(int id);
+        Task<AnimalTag> GetByName(string name);
     }
 }

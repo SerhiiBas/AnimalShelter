@@ -13,6 +13,7 @@ namespace AnimalShelter.Services.Interfaces
         Task<Animal> Create(Animal animal);
         Task<Animal> DeleteByID(int id);
         Task DeleteTag(int animalId, string tagName);
+        Task AddAnimalTag(int animalId, string nameTag);
         Task<Animal> Update(Animal animal);
     }
 }

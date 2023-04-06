@@ -23,5 +23,10 @@ namespace Data.Repos
         {
             return await _animalShelterContext.AnimalTag.FirstOrDefaultAsync(x => x.TagId == id);
         }
+
+        public async Task<AnimalTag> GetByName(string name)
+        {
+            return await _animalShelterContext.AnimalTag.FirstOrDefaultAsync(x => x.Name == name);
+        }
     }
 }
