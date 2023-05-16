@@ -9,6 +9,8 @@ namespace Servises.Interfaces
 {
     public interface IAnimalTagsServices
     {
-        public Task<AnimalTag> GetById(int id);
+        Task<AnimalTag> GetById(int id);
+        Task DeleteTag(int animalId, string tagName);
+        Task AddAnimalTag(int animalId, string nameTag);
     }
 }

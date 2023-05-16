@@ -12,13 +12,10 @@ namespace AnimalShelterMVC.Controllers
         private readonly IAnimalPhotoServices _animalsPhotoServices;
         private readonly IAnimalTagsServices _animalTagsServices;
 
-        public AnimalController(IAnimalServices animalsServices, IAnimalPhotoServices animalsPhotoServices, IAnimalTagsServices animalTagsServices)
+        public AnimalController(IAnimalServices animalsServices)
         {
             this._animalsServices = animalsServices;
-            this._animalsPhotoServices = animalsPhotoServices;
-            this._animalTagsServices = animalTagsServices;
         }
-        //Animal
 
         // ADD Animal
         [HttpGet]
@@ -31,7 +28,7 @@ namespace AnimalShelterMVC.Controllers
         public async Task<IActionResult> AddNewAnimal([FromForm] Animal Animal, [FromForm] int[] Tags)
         {
             if (!ModelState.IsValid)
-                return View("AddNewAnimal", Animal);// якщо невалідні поля заново повертає форму з винятками
+                return View("AddNewAnimal", Animal);
 
             List<AnimalTag> animalTags = new List<AnimalTag>();
 
@@ -98,36 +95,6 @@ namespace AnimalShelterMVC.Controllers
             return RedirectToAction("GetAllAnimal");
         }
 
-        // animal Tag
-        [HttpGet]
-        public async Task<IActionResult> DeleteAnimalTag()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteAnimalTag([FromForm] string Name, [FromRoute] int id)
-        {
-            await _animalsServices.DeleteTag(id, Name.ToString());
-
-            return RedirectToAction("GetAllAnimal");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> AddAnimalTag()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddAnimalTag([FromForm] string Name, [FromRoute] int id)
-        {
-            await _animalsServices.AddAnimalTag(id, Name.ToString());
-
-            return RedirectToAction("GetAllAnimal");
-        }
-
-        //Delete Animal
         public async Task<IActionResult> DeleteAnimal([FromRoute] int id)
         {
             var delAnimal = await _animalsServices.DeleteByID(id);
@@ -137,46 +104,5 @@ namespace AnimalShelterMVC.Controllers
             return View(delAnimal);
         }
 
-        // AnimalPhotos
-
-        public async Task<IActionResult> GetAllAnimalPhotos()
-        {
-            IEnumerable<AnimalPhoto> animalPhoto = await _animalsPhotoServices.GetAll();
-
-            CheckingExceptions.CheckingAtNull(animalPhoto);
-
-            return View(animalPhoto);
-        }
-
-        [HttpGet]
-        public IActionResult AddPhotoAnimal([FromRoute] int id)
-        {
-            return View("AddPhotoAnimal", new AnimalPhoto() { AnimalId = id });
-        }
-        [HttpPost]
-        public IActionResult AddPhotoAnimal([FromForm] AnimalPhoto animalsPhotos)
-        {
-            _animalsPhotoServices.Add(animalsPhotos);
-
-            return RedirectToAction("GetAllAnimal");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> DeleteAnimalPhoto([FromRoute] int id)
-        {
-            var animal = await _animalsPhotoServices.GetByID(id);
-
-            return View(animal);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteAnimalPhoto([FromForm] AnimalPhoto AnimalPhoto, [FromRoute] int id)
-        {
-            var animalPhoto = await _animalsPhotoServices.Delete(id);
-
-            CheckingExceptions.CheckingAtNull(animalPhoto);
-
-            return RedirectToAction("GetAllAnimalPhotos");
-        }
     }
 }

@@ -13,10 +13,9 @@ namespace AnimalShelterMVC.Controllers
         private readonly IEmployeeServices _employeesServices;
         private readonly IEmployeePhotoServices _employeesPhotoServices;
 
-        public EmployeeController(IEmployeeServices employeesServices, IEmployeePhotoServices employeesPhotoServices)
+        public EmployeeController(IEmployeeServices employeesServices)
         {
             this._employeesServices = employeesServices;
-            this._employeesPhotoServices = employeesPhotoServices;
         }
 
         [HttpGet]
@@ -84,52 +83,6 @@ namespace AnimalShelterMVC.Controllers
             _employeesServices.Update(employee);
 
             return RedirectToAction("GetAllEmployee");
-        }
-
-
-        //Photos
-
-        //Add AnimalPhotos
-
-        public async Task<IActionResult> GetAllEmployeePhoto()
-        {
-            IEnumerable<EmployeePhoto> employeePhoto = await _employeesPhotoServices.GetAll();
-
-            CheckingExceptions.CheckingAtNull(employeePhoto);
-
-            return View(employeePhoto);
-        }
-
-        [HttpGet]
-        public IActionResult AddPhotoEmployee([FromRoute] int id)
-        {
-            return View("AddPhotoEmployee", new EmployeePhoto() { EmployeeId = id });
-        }
-
-        [HttpPost]
-        public IActionResult AddPhotoEmployee([FromForm] EmployeePhoto EmployeePhoto)
-        {
-            _employeesPhotoServices.Add(EmployeePhoto);
-
-            return RedirectToAction("GetAllEmployee");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> DeleteEmployeePhoto([FromRoute] int id)
-        {
-            var delEmployee = await _employeesPhotoServices.GetByID(id);
-
-            return View(delEmployee);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteEmployeePhoto([FromForm] EmployeePhoto EmployeePhoto, [FromRoute] int id)
-        {
-            var employeePhoto = await _employeesPhotoServices.Delete(id);
-
-            CheckingExceptions.CheckingAtNull(employeePhoto);
-
-            return RedirectToAction("GetAllEmployeePhoto");
         }
     }
 }

@@ -35,7 +35,7 @@ namespace AnimalShelter.Controllers
 
             CheckingExceptions.CheckingAtNull(newVol);
 
-            return RedirectToAction("GetVolunteerById", new { id = newVol.VolunteerId });// Чому так запрацювало? як не створювати анонімний обєкт непрокидає в роут id
+            return RedirectToAction("GetVolunteerById", new { id = newVol.VolunteerId });
         }
 
         public async Task<IActionResult> GetAllVolunteer()

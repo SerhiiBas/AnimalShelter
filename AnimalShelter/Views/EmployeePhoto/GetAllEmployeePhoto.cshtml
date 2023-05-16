@@ -31,7 +31,7 @@
                 @Html.DisplayFor(modelItem => item.Photo)
             </td>
             <td>
-                @Html.ActionLink("Delete", "DeleteEmployeePhoto", new { id=item.Id })
+                @Html.ActionLink("Delete", "DeleteEmployeePhoto","EmployeePhoto", new { id=item.Id })
             </td>
         </tr>
 }
