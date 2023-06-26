@@ -59,8 +59,9 @@ namespace AnimalShelterMVC.Controllers
             return View(animal);
         }
 
-        public async Task<IActionResult> GetAnimalById([FromRoute] int id)
+        public async Task<IActionResult> GetAnimalById([FromRoute] int id, [FromForm] object obj)
         {
+            var ob = obj;
             Animal animal = await _animalsServices.GetById(id);
 
             CheckingExceptions.CheckingAtNull(animal);
