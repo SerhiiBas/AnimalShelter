@@ -3,20 +3,18 @@ using AnimalShelter.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using AnimalShelter.Data.Class;
 using AnimalShelter.Data.Interfaces;
-using AnimalShelter.Validation;
 using AnimalShelter.Context;
 using Servises.Interfaces;
 using AnimalShelter.Models.Animal;
 using Servises.Services_Class;
 using Data.Interfaces;
 using Data.Repos;
-using AnimalShelter.Models.Employee;
-using AnimalShelter.Models.Volunteer;
 using FluentValidation.AspNetCore;
-using System.Reflection;
 using FluentValidation;
-using System;
 using AnimalShelter.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Data.Context;
 
 namespace AnimalShelter
 {
@@ -30,9 +28,18 @@ namespace AnimalShelter
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<AnimalShelterContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+            });
 
-            options.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
-            );
+            builder.Services.AddDbContext<IdentityContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+            });
+
+            builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
+                .AddEntityFrameworkStores<IdentityContext>()
+                .AddDefaultTokenProviders();
 
             builder.Services.AddTransient<AnimalShelterContext>();
             builder.Services.AddTransient<IAnimalsRepo, AnimalsRepo>();
@@ -56,6 +63,14 @@ namespace AnimalShelter
 
             builder.Services.AddControllers(options => options.Filters.Add(typeof(ExceptionFilter)));
 
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer();
+
+            builder.Services.AddAuthorization();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -66,7 +81,14 @@ namespace AnimalShelter
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "areasRout",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
 
             app.MapControllerRoute(
                 name: "default",

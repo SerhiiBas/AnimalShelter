@@ -1,20 +1,23 @@
 ﻿using AnimalShelter.Models.Animal;
 using AnimalShelter.Services.Interfaces;
 using Filters.CastomExceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Servises.Interfaces;
 
-namespace AnimalShelterMVC.Controllers
+namespace AnimalShelterMVC.Areas.admin.Controllers
 {
+    [Authorize]
+    [Area("admin")]
     public class AnimalController : Controller
     {
         private readonly IAnimalServices _animalsServices;
-        private readonly IAnimalPhotoServices _animalsPhotoServices;
         private readonly IAnimalTagsServices _animalTagsServices;
 
-        public AnimalController(IAnimalServices animalsServices)
+        public AnimalController(IAnimalServices animalsServices, IAnimalTagsServices animalTagsServices)
         {
-            this._animalsServices = animalsServices;
+            _animalsServices = animalsServices;
+            _animalTagsServices = animalTagsServices;
         }
 
         // ADD Animal
@@ -59,6 +62,7 @@ namespace AnimalShelterMVC.Controllers
             return View(animal);
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAnimalById([FromRoute] int id, [FromForm] object obj)
         {
             var ob = obj;
@@ -90,12 +94,13 @@ namespace AnimalShelterMVC.Controllers
                 return View("UpdateAnimal", animal);
 
             CheckingExceptions.CheckingAtNull(animal);
-           
+
             await _animalsServices.Update(animal);
 
             return RedirectToAction("GetAllAnimal");
         }
 
+        [HttpGet]
         public async Task<IActionResult> DeleteAnimal([FromRoute] int id)
         {
             var delAnimal = await _animalsServices.DeleteByID(id);

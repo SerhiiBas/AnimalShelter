@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using AnimalShelter.Services.Class;
 using Filters.CastomExceptions;
+using Microsoft.AspNetCore.Authorization;
 
-namespace AnimalShelter.Controllers
+namespace AnimalShelterMVC.Areas.admin.Controllers
 {
+    [Authorize]
+    [Area("admin")]
     public class VolunteerController : Controller
     {
         private readonly IVolunteerServices _volunteersServices;
 
         public VolunteerController(IVolunteerServices volunteersServices)
         {
-            this._volunteersServices = volunteersServices;
+            _volunteersServices = volunteersServices;
         }
 
         [HttpGet]
@@ -45,6 +48,7 @@ namespace AnimalShelter.Controllers
             return View(volunteer);
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetVolunteerById([FromRoute] int id)
         {
             Volunteer volunteer = await _volunteersServices.GetById(id);
@@ -54,6 +58,7 @@ namespace AnimalShelter.Controllers
             return View(volunteer);
         }
 
+        [HttpGet]
         public async Task<IActionResult> DeleteVolunteer([FromRoute] int id)
         {
             var delVolunteer = await _volunteersServices.DeleteByID(id);

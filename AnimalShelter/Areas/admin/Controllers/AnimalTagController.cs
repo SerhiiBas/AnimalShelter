@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Servises.Interfaces;
 
-namespace AnimalShelterMVC.Controllers
+namespace AnimalShelterMVC.Areas.admin.Controllers
 {
+    [Authorize]
+    [Area("admin")]
     public class AnimalTagController : Controller
     {
         private readonly IAnimalTagsServices _animalTagsServices;
 
         public AnimalTagController(IAnimalTagsServices animalTagsServices)
         {
-            this._animalTagsServices = animalTagsServices;
+            _animalTagsServices = animalTagsServices;
         }
 
         [HttpGet]
@@ -23,7 +26,7 @@ namespace AnimalShelterMVC.Controllers
         {
             await _animalTagsServices.AddAnimalTag(id, Name.ToString());
 
-            return RedirectToAction("GetAllAnimal","Animal");
+            return RedirectToAction("GetAllAnimal", "Animal");
         }
 
 

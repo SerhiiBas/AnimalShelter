@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace AnimalShelter.Controllers
+namespace AnimalShelterMVC.Controllers
 {
     public class HomeController : Controller
     {

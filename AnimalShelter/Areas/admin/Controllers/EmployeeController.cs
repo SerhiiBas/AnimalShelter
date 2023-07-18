@@ -3,19 +3,21 @@ using AnimalShelter.Models.Employee;
 using AnimalShelter.Services.Class;
 using AnimalShelter.Services.Interfaces;
 using Filters.CastomExceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AnimalShelterMVC.Controllers
+namespace AnimalShelterMVC.Areas.admin.Controllers
 {
+    [Authorize]
+    [Area("admin")]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeServices _employeesServices;
-        private readonly IEmployeePhotoServices _employeesPhotoServices;
 
         public EmployeeController(IEmployeeServices employeesServices)
         {
-            this._employeesServices = employeesServices;
+            _employeesServices = employeesServices;
         }
 
         [HttpGet]
@@ -46,6 +48,7 @@ namespace AnimalShelterMVC.Controllers
             return View(employee);
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetEmployeeById([FromRoute] int id)
         {
             Employee employee = await _employeesServices.GetById(id);
@@ -55,6 +58,7 @@ namespace AnimalShelterMVC.Controllers
             return View(employee);
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteEmployee([FromRoute] int id)
         {
             var delEmployee = await _employeesServices.DeleteByID(id);

@@ -3,8 +3,8 @@ using AnimalShelter.Services.Interfaces;
 using AnimalShelterMVC.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using AnimalShelter.Controllers;
 using AnimalShelter.Models.Volunteer;
+using AnimalShelterMVC.Areas.admin.Controllers;
 
 namespace Test.IntegrationTest
 {

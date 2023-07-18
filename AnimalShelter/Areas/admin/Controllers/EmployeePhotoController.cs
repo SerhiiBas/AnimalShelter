@@ -1,17 +1,20 @@
 ﻿using AnimalShelter.Models.Employee;
 using AnimalShelter.Services.Interfaces;
 using Filters.CastomExceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AnimalShelterMVC.Controllers
+namespace AnimalShelterMVC.Areas.admin.Controllers
 {
+    [Authorize]
+    [Area("admin")]
     public class EmployeePhotoController : Controller
     {
         private readonly IEmployeePhotoServices _employeesPhotoServices;
 
         public EmployeePhotoController(IEmployeePhotoServices employeePhotoServices)
         {
-            this._employeesPhotoServices = employeePhotoServices;
+            _employeesPhotoServices = employeePhotoServices;
         }
         public async Task<IActionResult> GetAllEmployeePhoto()
         {
@@ -33,7 +36,7 @@ namespace AnimalShelterMVC.Controllers
         {
             _employeesPhotoServices.Add(EmployeePhoto);
 
-            return RedirectToAction("GetAllEmployee","Employee");
+            return RedirectToAction("GetAllEmployee", "Employee");
         }
 
         [HttpGet]
