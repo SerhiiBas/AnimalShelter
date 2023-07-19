@@ -31,9 +31,6 @@ namespace AnimalShelter
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
             });
 
-                        builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<AnimalShelterContext>();
-
             builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
                 .AddEntityFrameworkStores<AnimalShelterContext>()
                 .AddDefaultTokenProviders();
