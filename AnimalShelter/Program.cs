@@ -14,7 +14,6 @@ using FluentValidation;
 using AnimalShelter.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Data.Context;
 
 namespace AnimalShelter
 {
@@ -32,13 +31,11 @@ namespace AnimalShelter
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
             });
 
-            builder.Services.AddDbContext<IdentityContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
-            });
+                        builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<AnimalShelterContext>();
 
             builder.Services.AddIdentity<IdentityUser<int>, IdentityRole<int>>()
-                .AddEntityFrameworkStores<IdentityContext>()
+                .AddEntityFrameworkStores<AnimalShelterContext>()
                 .AddDefaultTokenProviders();
 
             builder.Services.AddTransient<AnimalShelterContext>();
@@ -71,6 +68,8 @@ namespace AnimalShelter
 
             builder.Services.AddAuthorization();
 
+            builder.Services.AddRazorPages();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -79,10 +78,10 @@ namespace AnimalShelter
 
             app.UseStaticFiles();
 
+            app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.MapControllerRoute(
@@ -94,7 +93,7 @@ namespace AnimalShelter
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.UseRouting();
+           app.MapRazorPages();
 
             app.Run();
         }

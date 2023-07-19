@@ -1,13 +1,14 @@
-﻿using AnimalShelter.Models;
-using AnimalShelter.Models.Animal;
+﻿using AnimalShelter.Models.Animal;
 using AnimalShelter.Models.Employee;
 using AnimalShelter.Models.Volunteer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.X509Certificates;
+
 
 namespace AnimalShelter.Context
 {
-    public class AnimalShelterContext : DbContext
+    public class AnimalShelterContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
     {
         public AnimalShelterContext(DbContextOptions<AnimalShelterContext> dbContextOptions) : base(dbContextOptions)
         {
