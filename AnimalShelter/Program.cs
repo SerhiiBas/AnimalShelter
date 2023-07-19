@@ -63,9 +63,9 @@ namespace AnimalShelter
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer();
 
-            builder.Services.AddAuthorization();
-
             builder.Services.AddRazorPages();
+
+            builder.Services.AddAuthorization();
 
             var app = builder.Build();
 
